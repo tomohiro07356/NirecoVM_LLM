@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "a3bHxXEHDX4=",
+  "success": true,
+  "projectFilePath": "/home/ubuntu/NirecoVM_LLM/src/NirecoVM_LLM/NirecoVM_LLM/NirecoVM_LLM.csproj",
+  "expectedPackageFiles": [
+    "/home/ubuntu/.nuget/packages/microsoft.bcl.asyncinterfaces/8.0.0/microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/microsoft.extensions.ai.abstractions/9.4.3-preview.1.25230.7/microsoft.extensions.ai.abstractions.9.4.3-preview.1.25230.7.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/microsoft.win32.systemevents/9.0.4/microsoft.win32.systemevents.9.0.4.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/mistral.sdk/2.1.2/mistral.sdk.2.1.2.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/system.drawing.common/9.0.4/system.drawing.common.9.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}

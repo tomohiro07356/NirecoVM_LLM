@@ -7,22 +7,21 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Ollama.NET;
-using Ollama.NET.Models;
+using Ollama;
 
 namespace NirecoVM_LLM
 {
     public partial class MainForm : Form
     {
         private string _selectedImagePath;
-        private readonly OllamaApiClient _ollamaClient;
+        private readonly OllamaClient _ollamaClient;
         private const string MODEL_NAME = "mistral-medium-3";
         private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 
         public MainForm()
         {
             InitializeComponent();
-            _ollamaClient = new OllamaApiClient(OLLAMA_ENDPOINT);
+            _ollamaClient = new OllamaClient(new Uri(OLLAMA_ENDPOINT));
         }
 
         private void btnSelectImage_Click(object sender, EventArgs e)

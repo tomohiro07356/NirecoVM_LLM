@@ -81,7 +81,7 @@ NirecoVM_LLM/
 MainForm.csファイル内の`OLLAMA_ENDPOINT`と`MODEL_NAME`の値を、必要に応じて環境に合わせて変更してください：
 
 ```csharp
-private const string MODEL_NAME = "mistral-medium-3";
+private const string MODEL_NAME = "mistral";
 private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 ```
 

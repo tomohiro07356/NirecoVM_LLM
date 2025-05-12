@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ollama" Version="1.15.0" />
+    <PackageReference Include="OllamaSharp" Version="5.1.14" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
   </ItemGroup>
 

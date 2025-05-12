@@ -18,6 +18,21 @@ NirecoVM_LLMは、車両が1台写っている画像を入力すると、日本�
 - UI: Windows Forms
 - 言語: C#
 - LLM: Mistral Medium 3（マルチモーダル対応）
+- ライブラリ: Ollama.NET
+
+## ファイル構造
+
+```
+NirecoVM_LLM/
+├── NirecoVM_LLM.sln
+└── NirecoVM_LLM/
+    ├── MainForm.cs
+    ├── MainForm.Designer.cs
+    ├── NirecoVM_LLM.csproj
+    ├── Program.cs
+    └── SampleImages/
+        └── Cap_20250501082858.jpg
+```
 
 ## セットアップ方法
 
@@ -25,39 +40,49 @@ NirecoVM_LLMは、車両が1台写っている画像を入力すると、日本�
 
 - Windows 10/11
 - .NET 8 SDK
-- ローカルで実行されているMistral Medium 3 LLM
+- Ollama（ローカルLLMランナー）
 
 ### インストール手順
 
-1. リポジトリをクローン
+1. Ollamaをインストールして起動
+   - [Ollama公式サイト](https://ollama.ai/)からダウンロードしてインストール
+   - 以下のコマンドでMistral Medium 3モデルをダウンロード：
+     ```
+     ollama pull mistral-medium-3
+     ```
+
+2. リポジトリをクローン
    ```
    git clone https://github.com/tomohiro07356/NirecoVM_LLM.git
    ```
 
-2. プロジェクトディレクトリに移動
+3. プロジェクトディレクトリに移動
    ```
    cd NirecoVM_LLM
    ```
 
-3. アプリケーションをビルド
+4. NuGetパッケージを復元
+   ```
+   dotnet restore
+   ```
+
+5. アプリケーションをビルド
    ```
    dotnet build
    ```
 
-4. アプリケーションを実行
+6. アプリケーションを実行
    ```
-   dotnet run
+   dotnet run --project NirecoVM_LLM/NirecoVM_LLM.csproj
    ```
 
 ### ローカルLLMの設定
 
-MainForm.csファイル内の`_mistralClient`の初期化部分を、ローカルLLMの設定に合わせて変更してください：
+MainForm.csファイル内の`OLLAMA_ENDPOINT`と`MODEL_NAME`の値を、必要に応じて環境に合わせて変更してください：
 
 ```csharp
-_mistralClient = new MistralClient(
-    apiKey: "your-api-key", // ローカルLLMを使用する場合は不要かもしれません
-    endpoint: "http://localhost:8000" // ローカルLLMのエンドポイント
-);
+private const string MODEL_NAME = "mistral-medium-3";
+private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 ```
 
 ## 使用方法

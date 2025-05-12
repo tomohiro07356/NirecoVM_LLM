@@ -1,25 +1,28 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Mistral.SDK;
-using Mistral.SDK.Models;
+using Ollama.NET;
+using Ollama.NET.Models;
 
 namespace NirecoVM_LLM
 {
     public partial class MainForm : Form
     {
         private string _selectedImagePath;
-        private readonly MistralClient _mistralClient;
+        private readonly OllamaApiClient _ollamaClient;
+        private const string MODEL_NAME = "mistral-medium-3";
+        private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 
         public MainForm()
         {
             InitializeComponent();
-            _mistralClient = new MistralClient(
-                apiKey: "dummy-api-key", // ローカルLLMを使用する場合は不要かもしれません
-                endpoint: "http://localhost:8000" // ローカルLLMのエンドポイント
-            );
+            _ollamaClient = new OllamaApiClient(OLLAMA_ENDPOINT);
         }
 
         private void btnSelectImage_Click(object sender, EventArgs e)
@@ -68,7 +71,8 @@ namespace NirecoVM_LLM
                 btnAnalyze.Enabled = false;
                 txtResult.Text = "画像を分析中...";
 
-                string base64Image = Convert.ToBase64String(File.ReadAllBytes(_selectedImagePath));
+                byte[] imageBytes = File.ReadAllBytes(_selectedImagePath);
+                string base64Image = Convert.ToBase64String(imageBytes);
 
                 string prompt = "この画像には日本の車両が写っています。ナンバープレートの情報を抽出して、以下の形式で出力してください：\n" +
                                 "地域名：（例：品川）\n" +
@@ -76,36 +80,22 @@ namespace NirecoVM_LLM
                                 "ひらがな：（例：さ）\n" +
                                 "ナンバー：（例：1234）\n";
 
-                var response = await _mistralClient.ChatAsync(
-                    new ChatRequest
+                var request = new GenerateRequest
+                {
+                    Model = MODEL_NAME,
+                    Prompt = prompt,
+                    Stream = false,
+                    Options = new Dictionary<string, object>
                     {
-                        Model = "mistral-medium-3",
-                        Messages = new[]
-                        {
-                            new ChatMessage
-                            {
-                                Role = "user",
-                                Content = new[]
-                                {
-                                    new ChatMessageContent
-                                    {
-                                        Type = "text",
-                                        Text = prompt
-                                    },
-                                    new ChatMessageContent
-                                    {
-                                        Type = "image",
-                                        ImageUrl = new ChatMessageImageUrl
-                                        {
-                                            Data = base64Image
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
+                        { "temperature", 0.7 },
+                        { "num_predict", 1024 }
+                    },
+                    Images = new List<string> { base64Image }
+                };
 
-                txtResult.Text = response.Choices[0].Message.Content;
+                var response = await _ollamaClient.GenerateAsync(request);
+
+                txtResult.Text = response.Response;
             }
             catch (Exception ex)
             {

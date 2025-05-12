@@ -6,12 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mistral.SDK" Version="2.1.2" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
-    <PackageReference Include="Microsoft.SemanticKernel.Connectors.MistralAI" Version="1.49.0-alpha" />
+    <PackageReference Include="Ollama.NET" Version="1.0.3" />
   </ItemGroup>
 
 </Project>

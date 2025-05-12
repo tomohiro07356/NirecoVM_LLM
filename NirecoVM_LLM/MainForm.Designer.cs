@@ -30,12 +30,12 @@ namespace NirecoVM_LLM
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Location = new System.Drawing.Point(12, 36);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(400, 300);
+            this.pictureBox.Size = new System.Drawing.Size(400, 225);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
             // 
-            this.btnSelectImage.Location = new System.Drawing.Point(12, 342);
+            this.btnSelectImage.Location = new System.Drawing.Point(12, 267);
             this.btnSelectImage.Name = "btnSelectImage";
             this.btnSelectImage.Size = new System.Drawing.Size(150, 30);
             this.btnSelectImage.TabIndex = 1;
@@ -44,7 +44,7 @@ namespace NirecoVM_LLM
             this.btnSelectImage.Click += new System.EventHandler(this.btnSelectImage_Click);
             // 
             // 
-            this.btnAnalyze.Location = new System.Drawing.Point(262, 342);
+            this.btnAnalyze.Location = new System.Drawing.Point(262, 267);
             this.btnAnalyze.Name = "btnAnalyze";
             this.btnAnalyze.Size = new System.Drawing.Size(150, 30);
             this.btnAnalyze.TabIndex = 2;
@@ -53,7 +53,7 @@ namespace NirecoVM_LLM
             this.btnAnalyze.Click += new System.EventHandler(this.btnAnalyze_Click);
             // 
             // 
-            this.txtResult.Location = new System.Drawing.Point(12, 408);
+            this.txtResult.Location = new System.Drawing.Point(12, 333);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
@@ -71,7 +71,7 @@ namespace NirecoVM_LLM
             // 
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 385);
+            this.label2.Location = new System.Drawing.Point(12, 310);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 15);
             this.label2.TabIndex = 5;
@@ -80,7 +80,7 @@ namespace NirecoVM_LLM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 571);
+            this.ClientSize = new System.Drawing.Size(424, 496);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtResult);

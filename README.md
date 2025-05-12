@@ -1,0 +1,72 @@
+# NirecoVM_LLM
+
+日本の車両ナンバープレート認識アプリケーション
+
+## 概要
+
+NirecoVM_LLMは、車両が1台写っている画像を入力すると、日本のナンバープレート情報を出力するWindowsのネイティブアプリケーションです。
+
+## 機能
+
+- 車両画像の読み込み
+- ローカルLLM（Mistral Medium 3）を使用したナンバープレート認識
+- 認識結果の表示（地域名、分類番号、ひらがな、ナンバー）
+
+## 技術仕様
+
+- フレームワーク: .NET 8
+- UI: Windows Forms
+- 言語: C#
+- LLM: Mistral Medium 3（マルチモーダル対応）
+
+## セットアップ方法
+
+### 前提条件
+
+- Windows 10/11
+- .NET 8 SDK
+- ローカルで実行されているMistral Medium 3 LLM
+
+### インストール手順
+
+1. リポジトリをクローン
+   ```
+   git clone https://github.com/tomohiro07356/NirecoVM_LLM.git
+   ```
+
+2. プロジェクトディレクトリに移動
+   ```
+   cd NirecoVM_LLM
+   ```
+
+3. アプリケーションをビルド
+   ```
+   dotnet build
+   ```
+
+4. アプリケーションを実行
+   ```
+   dotnet run
+   ```
+
+### ローカルLLMの設定
+
+MainForm.csファイル内の`_mistralClient`の初期化部分を、ローカルLLMの設定に合わせて変更してください：
+
+```csharp
+_mistralClient = new MistralClient(
+    apiKey: "your-api-key", // ローカルLLMを使用する場合は不要かもしれません
+    endpoint: "http://localhost:8000" // ローカルLLMのエンドポイント
+);
+```
+
+## 使用方法
+
+1. アプリケーションを起動
+2. 「画像を選択」ボタンをクリックして車両画像を選択
+3. 「ナンバープレート認識」ボタンをクリックして分析を実行
+4. 認識結果が表示されます
+
+## ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。

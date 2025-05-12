@@ -2,21 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Ollama.NET;
-using Ollama.NET.Models;
+using OllamaSharp;
+using OllamaSharp.Models;
 
 namespace NirecoVM_LLM
 {
     public partial class MainForm : Form
     {
-        private string _selectedImagePath;
+        private string? _selectedImagePath;
         private readonly OllamaApiClient _ollamaClient;
-        private const string MODEL_NAME = "mistral-medium-3";
+        private const string MODEL_NAME = "mistral";
         private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 
         public MainForm()
@@ -85,17 +86,26 @@ namespace NirecoVM_LLM
                     Model = MODEL_NAME,
                     Prompt = prompt,
                     Stream = false,
-                    Options = new Dictionary<string, object>
+                    Options = new RequestOptions
                     {
-                        { "temperature", 0.7 },
-                        { "num_predict", 1024 }
+                        Temperature = 0.7f,
+                        NumPredict = 1024
                     },
-                    Images = new List<string> { base64Image }
+                    Images = new[] { base64Image }
                 };
 
-                var response = await _ollamaClient.GenerateAsync(request);
+                var responseStream = _ollamaClient.GenerateAsync(request);
+                string responseText = "";
+                
+                await foreach (var response in responseStream)
+                {
+                    if (response != null)
+                    {
+                        responseText += response.Response;
+                    }
+                }
 
-                txtResult.Text = response.Response;
+                txtResult.Text = responseText;
             }
             catch (Exception ex)
             {

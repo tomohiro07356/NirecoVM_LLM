@@ -17,8 +17,8 @@ NirecoVM_LLMは、車両が1台写っている画像を入力すると、日本�
 - フレームワーク: .NET 8
 - UI: Windows Forms
 - 言語: C#
-- LLM: Mistral Medium 3（マルチモーダル対応）
-- ライブラリ: Ollama.NET
+- LLM: Mistral（マルチモーダル対応）
+- ライブラリ: OllamaSharp
 
 ## ファイル構造
 
@@ -46,9 +46,9 @@ NirecoVM_LLM/
 
 1. Ollamaをインストールして起動
    - [Ollama公式サイト](https://ollama.ai/)からダウンロードしてインストール
-   - 以下のコマンドでMistral Medium 3モデルをダウンロード：
+   - 以下のコマンドでMistralモデルをダウンロード：
      ```
-     ollama pull mistral-medium-3
+     ollama pull mistral
      ```
 
 2. リポジトリをクローン
@@ -81,7 +81,7 @@ NirecoVM_LLM/
 MainForm.csファイル内の`OLLAMA_ENDPOINT`と`MODEL_NAME`の値を、必要に応じて環境に合わせて変更してください：
 
 ```csharp
-private const string MODEL_NAME = "mistral-medium-3";
+private const string MODEL_NAME = "mistral";
 private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 ```
 

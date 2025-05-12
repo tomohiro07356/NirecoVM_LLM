@@ -19,11 +19,32 @@ namespace NirecoVM_LLM
         private readonly OllamaApiClient _ollamaClient;
         private const string MODEL_NAME = "llama3.2-vision";
         private const string OLLAMA_ENDPOINT = "http://localhost:11434";
+        private byte[]? _currentImageBytes;
+        private bool _isAnalyzing = false;
 
         public MainForm()
         {
             InitializeComponent();
             _ollamaClient = new OllamaApiClient(OLLAMA_ENDPOINT);
+            this.FormClosing += MainForm_FormClosing;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CleanupResources();
+        }
+
+        private void CleanupResources()
+        {
+            if (pictureBox.Image != null)
+            {
+                pictureBox.Image.Dispose();
+                pictureBox.Image = null;
+            }
+
+            _currentImageBytes = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnSelectImage_Click(object sender, EventArgs e)
@@ -35,6 +56,12 @@ namespace NirecoVM_LLM
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    if (pictureBox.Image != null)
+                    {
+                        pictureBox.Image.Dispose();
+                        pictureBox.Image = null;
+                    }
+
                     _selectedImagePath = openFileDialog.FileName;
                     LoadAndDisplayImage(_selectedImagePath);
                     txtResult.Clear();
@@ -48,7 +75,8 @@ namespace NirecoVM_LLM
             {
                 using (var image = Image.FromFile(imagePath))
                 {
-                    pictureBox.Image?.Dispose();
+                    _currentImageBytes = File.ReadAllBytes(imagePath);
+                    
                     pictureBox.Image = new Bitmap(image, pictureBox.Width, pictureBox.Height);
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 }
@@ -61,19 +89,25 @@ namespace NirecoVM_LLM
 
         private async void btnAnalyze_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_selectedImagePath) || !File.Exists(_selectedImagePath))
+            if (string.IsNullOrEmpty(_selectedImagePath) || !File.Exists(_selectedImagePath) || _currentImageBytes == null)
             {
                 MessageBox.Show("画像を選択してください。", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            if (_isAnalyzing)
+            {
+                MessageBox.Show("現在分析中です。しばらくお待ちください。", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             try
             {
+                _isAnalyzing = true;
                 btnAnalyze.Enabled = false;
                 txtResult.Text = "画像を分析中...";
 
-                byte[] imageBytes = File.ReadAllBytes(_selectedImagePath);
-                string base64Image = Convert.ToBase64String(imageBytes);
+                string base64Image = Convert.ToBase64String(_currentImageBytes);
 
                 string prompt = "The vehicle in the image is a Japanese car. Please check the license plate information. All you need is the main 4 digits, no other information is required. For example, if the number is 12-34, just answer License Plate: 12-34. If you cannot read it, just answer License Plate: None.";
 
@@ -110,6 +144,10 @@ namespace NirecoVM_LLM
             finally
             {
                 btnAnalyze.Enabled = true;
+                _isAnalyzing = false;
+                
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
         }
     }

@@ -1,8 +1,8 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
-      "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
+    "net8.0-windows7.0": {
+      "Microsoft.Bcl.AsyncInterfaces/9.0.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -13,6 +13,9 @@
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "Microsoft.Extensions.AI.Abstractions/9.4.3-preview.1.25230.7": {
@@ -50,19 +53,19 @@
           }
         }
       },
-      "Mistral.SDK/2.1.2": {
+      "OllamaSharp/5.1.14": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "8.0.0",
+          "Microsoft.Bcl.AsyncInterfaces": "9.0.0",
           "Microsoft.Extensions.AI.Abstractions": "9.4.3-preview.1.25230.7"
         },
         "compile": {
-          "lib/net8.0/Mistral.SDK.dll": {
+          "lib/net8.0/OllamaSharp.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Mistral.SDK.dll": {
+          "lib/net8.0/OllamaSharp.dll": {
             "related": ".xml"
           }
         }
@@ -95,10 +98,10 @@
     }
   },
   "libraries": {
-    "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
-      "sha512": "3WA9q9yVqJp222P3x1wYIGDAkpjAku0TMUaaQV22g6L67AI0LdOIrVS7Ht2vJfLHGSPVuqN94vIr15qn+HEkHw==",
+    "Microsoft.Bcl.AsyncInterfaces/9.0.0": {
+      "sha512": "owmu2Cr3IQ8yQiBleBHlGk8dSQ12oaF2e7TpzwJKEl4m84kkZJjEY1n33L67Y3zM5jPOjmmbdHjbfiL0RqcMRQ==",
       "type": "package",
-      "path": "microsoft.bcl.asyncinterfaces/8.0.0",
+      "path": "microsoft.bcl.asyncinterfaces/9.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -108,13 +111,15 @@
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/Microsoft.Bcl.AsyncInterfaces.targets",
         "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Bcl.AsyncInterfaces.targets",
         "lib/net462/Microsoft.Bcl.AsyncInterfaces.dll",
         "lib/net462/Microsoft.Bcl.AsyncInterfaces.xml",
         "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll",
         "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.xml",
         "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll",
         "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.xml",
-        "microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
+        "microsoft.bcl.asyncinterfaces.9.0.0.nupkg.sha512",
         "microsoft.bcl.asyncinterfaces.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -172,22 +177,27 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Mistral.SDK/2.1.2": {
-      "sha512": "dzHugsboZagcmUrIMHrFRF0nmC6DYWVirt0eMHLg7kPIWXGAHNfy6Iib++O+EgAAZMB2/hd/Cu6cIHRKfdzzqA==",
+    "OllamaSharp/5.1.14": {
+      "sha512": "rT7cHYxINdEiR3bZrQyFZPDE5DRkmC5p83AL916WIWMuPiNPo/4Ug9eadU+NPnoXEKz0eIino/+2RRy8rM8NbA==",
       "type": "package",
-      "path": "mistral.sdk/2.1.2",
+      "path": "ollamasharp/5.1.14",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "LICENSE",
+        "Ollama.png",
         "README.md",
-        "lib/net6.0/Mistral.SDK.dll",
-        "lib/net6.0/Mistral.SDK.xml",
-        "lib/net8.0/Mistral.SDK.dll",
-        "lib/net8.0/Mistral.SDK.xml",
-        "lib/netstandard2.0/Mistral.SDK.dll",
-        "lib/netstandard2.0/Mistral.SDK.xml",
-        "mistral.sdk.2.1.2.nupkg.sha512",
-        "mistral.sdk.nuspec"
+        "analyzers/dotnet/cs/OllamaSharp.SourceGenerators.dll",
+        "lib/net8.0/OllamaSharp.dll",
+        "lib/net8.0/OllamaSharp.xml",
+        "lib/net9.0/OllamaSharp.dll",
+        "lib/net9.0/OllamaSharp.xml",
+        "lib/netstandard2.0/OllamaSharp.dll",
+        "lib/netstandard2.0/OllamaSharp.xml",
+        "lib/netstandard2.1/OllamaSharp.dll",
+        "lib/netstandard2.1/OllamaSharp.xml",
+        "ollamasharp.5.1.14.nupkg.sha512",
+        "ollamasharp.nuspec"
       ]
     },
     "System.Drawing.Common/9.0.4": {
@@ -234,35 +244,42 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
-      "Mistral.SDK >= 2.1.2",
+    "net8.0-windows7.0": [
+      "OllamaSharp >= 5.1.14",
       "System.Drawing.Common >= 9.0.4"
     ]
   },
   "packageFolders": {
-    "/home/ubuntu/.nuget/packages/": {}
+    "C:\\Users\\458\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ubuntu/NirecoVM_LLM/src/NirecoVM_LLM/NirecoVM_LLM/NirecoVM_LLM.csproj",
+      "projectUniqueName": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
       "projectName": "NirecoVM_LLM",
-      "projectPath": "/home/ubuntu/NirecoVM_LLM/src/NirecoVM_LLM/NirecoVM_LLM/NirecoVM_LLM.csproj",
-      "packagesPath": "/home/ubuntu/.nuget/packages/",
-      "outputPath": "/home/ubuntu/NirecoVM_LLM/src/NirecoVM_LLM/NirecoVM_LLM/obj/",
+      "projectPath": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
+      "packagesPath": "C:\\Users\\458\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\458\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
           "projectReferences": {}
         }
       },
@@ -275,15 +292,16 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows",
         "dependencies": {
-          "Mistral.SDK": {
+          "OllamaSharp": {
             "target": "Package",
-            "version": "[2.1.2, )"
+            "version": "[5.1.14, )"
           },
           "System.Drawing.Common": {
             "target": "Package",
@@ -304,9 +322,12 @@
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/ubuntu/.dotnet/sdk/8.0.408/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

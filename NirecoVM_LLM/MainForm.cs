@@ -75,7 +75,7 @@ namespace NirecoVM_LLM
                 byte[] imageBytes = File.ReadAllBytes(_selectedImagePath);
                 string base64Image = Convert.ToBase64String(imageBytes);
 
-                string prompt = "The vehicle in the image is a Japanese vehicle. Please read the license plate information.";
+                string prompt = "The vehicle in the image is a Japanese car. Please check the license plate information. All you need is the main 4 digits, no other information is required. For example, if the number is 12-34, just answer License Plate: 12-34. If you cannot read it, just answer License Plate: None.";
 
                 var request = new GenerateRequest
                 {

@@ -75,11 +75,13 @@ namespace NirecoVM_LLM
                 byte[] imageBytes = File.ReadAllBytes(_selectedImagePath);
                 string base64Image = Convert.ToBase64String(imageBytes);
 
-                string prompt = "この画像には日本の車両が写っています。ナンバープレートの情報を抽出して、以下の形式で出力してください：\n" +
+                string prompt = "この画像に何が写っているか分析してください。\n" +
+                                "もし日本の車両が写っている場合は、「車両あり」と表示し、ナンバープレートの情報を以下の形式で出力してください：\n" +
                                 "地域名：（例：品川）\n" +
                                 "分類番号：（例：300）\n" +
                                 "ひらがな：（例：さ）\n" +
-                                "ナンバー：（例：1234）\n";
+                                "ナンバー：（例：1234）\n\n" +
+                                "もし車両が写っていない場合は、「車両なし」と表示し、画像に何が写っているかを簡潔に説明してください。";
 
                 var request = new GenerateRequest
                 {

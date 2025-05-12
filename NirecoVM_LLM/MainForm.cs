@@ -17,7 +17,7 @@ namespace NirecoVM_LLM
     {
         private string? _selectedImagePath;
         private readonly OllamaApiClient _ollamaClient;
-        private const string MODEL_NAME = "mistral-medium-3";
+        private const string MODEL_NAME = "mistral";
         private const string OLLAMA_ENDPOINT = "http://localhost:11434";
 
         public MainForm()

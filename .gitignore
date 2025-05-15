@@ -63,6 +63,11 @@ msbuild.wrn
 # NuGet v3's project.json files produces more ignorable files
 *.nuget.props
 *.nuget.targets
+project.assets.json
+project.nuget.cache
+*.nuget.dgspec.json
+*.nuget.g.props
+*.nuget.g.targets
 
 # Large model files
 models/*.gguf

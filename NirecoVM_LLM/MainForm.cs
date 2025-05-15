@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LLama;
 using LLama.Native;
 using LLama.Common;
-using LLama.Sampling;
-using LLama.Batched;
+using LLama.Abstractions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -21,9 +21,10 @@ namespace NirecoVM_LLM
         private string? _selectedImagePath;
         private byte[]? _currentImageBytes;
         private bool _isAnalyzing = false;
-        private LLamaWeights? _model;
-        private ILLamaContext? _context;
+        private LLama.LLavaWeights? _model;
+        private LLama.Context? _context;
         private const string MODEL_PATH = "models/llama-3.2-vision-8b.Q5_K_M.gguf";
+        private const string CLIP_MODEL_PATH = "models/llama-3.2-vision-8b-mmproj.Q5_K_M.gguf";
         private const int MAX_TOKENS = 1024;
         private const float TEMPERATURE = 0.7f;
 
@@ -46,9 +47,9 @@ namespace NirecoVM_LLM
                     return;
                 }
 
-                NativeLibraryConfig.SetBackendType(BackendType.Cuda);
+                LLama.Native.NativeLibraryConfig.Instance.WithCuda();
 
-                var parameters = new ModelParams(MODEL_PATH)
+                var parameters = new LLama.ModelParams(MODEL_PATH)
                 {
                     ContextSize = 4096,
                     GpuLayerCount = 100, // GPUで処理するレイヤー数
@@ -57,9 +58,9 @@ namespace NirecoVM_LLM
                     UseMLock = true,
                 };
 
-                _model = LLamaWeights.LoadFromFile(parameters);
+                _model = LLama.LLavaWeights.LoadFromFile(parameters, CLIP_MODEL_PATH);
 
-                var contextParams = new ContextParams
+                var contextParams = new LLama.Common.ContextParams
                 {
                     BatchSize = 512,
                     Seed = 1337,
@@ -166,22 +167,22 @@ namespace NirecoVM_LLM
 
                 string prompt = "The vehicle in the image is a Japanese car. Please check the license plate information. All you need is the main 4 digits, no other information is required. For example, if the number is 12-34, just answer License Plate: 12-34. If you cannot read it, just answer License Plate: None.";
 
-                var inferenceParams = new InferenceParams
+                var inferenceParams = new LLama.Common.InferenceParams
                 {
                     Temperature = TEMPERATURE,
                     MaxTokens = MAX_TOKENS,
                     AntiPrompt = new List<string> { "User:", "Human:" }
                 };
 
-                var multimodalData = new List<LLama.Common.IMultiModalData>
+                var multimodalData = new List<LLama.Abstractions.IMultiModalData>
                 {
                     new LLama.Common.ImageData(processedImageBytes)
                 };
 
                 string responseText = await Task.Run(() => 
                 {
-                    var executor = new LLama.Batched.StatelessExecutor(_context, inferenceParams);
-                    return executor.InferMultiModal(prompt, multimodalData);
+                    var executor = new LLama.Executor(_context, inferenceParams);
+                    return executor.Infer(prompt, multimodalData);
                 });
 
                 txtResult.Text = responseText.Trim();

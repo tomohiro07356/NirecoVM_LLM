@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LLamaSharp;
-using LLamaSharp.Models;
-using LLamaSharp.Utils;
+using LLama.Native;
+using LLama.Common;
+using LLama.Sampling;
+using LLama.Batched;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using LLamaSharp.Backend;
 
 namespace NirecoVM_LLM
 {
@@ -22,7 +22,7 @@ namespace NirecoVM_LLM
         private byte[]? _currentImageBytes;
         private bool _isAnalyzing = false;
         private LLamaWeights? _model;
-        private LLamaContext? _context;
+        private ILLamaContext? _context;
         private const string MODEL_PATH = "models/llama-3.2-vision-8b.Q5_K_M.gguf";
         private const int MAX_TOKENS = 1024;
         private const float TEMPERATURE = 0.7f;
@@ -46,7 +46,7 @@ namespace NirecoVM_LLM
                     return;
                 }
 
-                LLamaBackendType.SetBackendType(LLamaBackendType.BackendType.CUDA);
+                NativeLibraryConfig.SetBackendType(BackendType.Cuda);
 
                 var parameters = new ModelParams(MODEL_PATH)
                 {
@@ -173,14 +173,14 @@ namespace NirecoVM_LLM
                     AntiPrompt = new List<string> { "User:", "Human:" }
                 };
 
-                var multimodalData = new List<IMultiModalData>
+                var multimodalData = new List<LLama.Common.IMultiModalData>
                 {
-                    new ImageData(processedImageBytes)
+                    new LLama.Common.ImageData(processedImageBytes)
                 };
 
                 string responseText = await Task.Run(() => 
                 {
-                    var executor = new StatelessExecutor(_context, inferenceParams);
+                    var executor = new LLama.Batched.StatelessExecutor(_context, inferenceParams);
                     return executor.InferMultiModal(prompt, multimodalData);
                 });
 

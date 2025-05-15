@@ -1,6 +1,10 @@
 # .NET build artifacts
 bin/
 obj/
+*.dll
+*.exe
+*.pdb
+*.cache
 
 # Visual Studio files
 .vs/
@@ -12,6 +16,10 @@ obj/
 *.jfm
 *.pfx
 *.publishsettings
+*.vspscc
+*.vssscc
+.vscode/
+*.sln.docstates
 
 # ReSharper
 _ReSharper*/
@@ -32,12 +40,35 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+msbuild.log
+msbuild.err
+msbuild.wrn
 
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !?*.[Cc]ache/
+
+# NuGet
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
+# Large model files
+models/*.gguf
+models/*.bin
+!models/README.md
+!models/.gitkeep
 
 # Others
 *.swp
@@ -47,3 +78,4 @@ project.fragment.lock.json
 artifacts/
 .DS_Store
 Thumbs.db
+test-project/

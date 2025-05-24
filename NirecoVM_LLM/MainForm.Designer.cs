@@ -17,84 +17,96 @@ namespace NirecoVM_LLM
 
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.btnSelectImage = new System.Windows.Forms.Button();
-            this.btnAnalyze = new System.Windows.Forms.Button();
-            this.txtResult = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.SuspendLayout();
+            pictureBox = new PictureBox();
+            btnSelectImage = new Button();
+            btnAnalyze = new Button();
+            txtResult = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
+            SuspendLayout();
             // 
+            // pictureBox
             // 
-            this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox.Location = new System.Drawing.Point(24, 50);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(750, 422);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
+            pictureBox.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox.Location = new Point(21, 50);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(656, 422);
+            pictureBox.TabIndex = 0;
+            pictureBox.TabStop = false;
             // 
+            // btnSelectImage
             // 
-            this.btnSelectImage.Location = new System.Drawing.Point(24, 490);
-            this.btnSelectImage.Name = "btnSelectImage";
-            this.btnSelectImage.Size = new System.Drawing.Size(300, 50);
-            this.btnSelectImage.TabIndex = 1;
-            this.btnSelectImage.Text = "画像を選択";
-            this.btnSelectImage.UseVisualStyleBackColor = true;
-            this.btnSelectImage.Click += new System.EventHandler(this.btnSelectImage_Click);
+            btnSelectImage.Font = new Font("Yu Gothic UI", 12F);
+            btnSelectImage.Location = new Point(21, 490);
+            btnSelectImage.Name = "btnSelectImage";
+            btnSelectImage.Size = new Size(262, 50);
+            btnSelectImage.TabIndex = 1;
+            btnSelectImage.Text = "画像を選択";
+            btnSelectImage.UseVisualStyleBackColor = true;
+            btnSelectImage.Click += btnSelectImage_Click;
             // 
+            // btnAnalyze
             // 
-            this.btnAnalyze.Location = new System.Drawing.Point(474, 490);
-            this.btnAnalyze.Name = "btnAnalyze";
-            this.btnAnalyze.Size = new System.Drawing.Size(300, 50);
-            this.btnAnalyze.TabIndex = 2;
-            this.btnAnalyze.Text = "ナンバープレート認識";
-            this.btnAnalyze.UseVisualStyleBackColor = true;
-            this.btnAnalyze.Click += new System.EventHandler(this.btnAnalyze_Click);
+            btnAnalyze.Font = new Font("Yu Gothic UI", 12F);
+            btnAnalyze.Location = new Point(415, 490);
+            btnAnalyze.Name = "btnAnalyze";
+            btnAnalyze.Size = new Size(262, 50);
+            btnAnalyze.TabIndex = 2;
+            btnAnalyze.Text = "ナンバープレート認識";
+            btnAnalyze.UseVisualStyleBackColor = true;
+            btnAnalyze.Click += btnAnalyze_Click;
             // 
+            // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(24, 590);
-            this.txtResult.Multiline = true;
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ReadOnly = true;
-            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResult.Size = new System.Drawing.Size(750, 450);
-            this.txtResult.TabIndex = 3;
+            txtResult.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            txtResult.Location = new Point(21, 590);
+            txtResult.Multiline = true;
+            txtResult.Name = "txtResult";
+            txtResult.ReadOnly = true;
+            txtResult.ScrollBars = ScrollBars.Vertical;
+            txtResult.Size = new Size(657, 135);
+            txtResult.TabIndex = 3;
             // 
+            // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "車両画像：";
+            label1.AutoSize = true;
+            label1.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            label1.Location = new Point(21, 24);
+            label1.Name = "label1";
+            label1.Size = new Size(90, 21);
+            label1.TabIndex = 4;
+            label1.Text = "車両画像：";
             // 
+            // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 560);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 15);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "認識結果：";
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            label2.Location = new Point(21, 560);
+            label2.Name = "label2";
+            label2.Size = new Size(90, 21);
+            label2.TabIndex = 5;
+            label2.Text = "認識結果：";
             // 
+            // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 1060);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtResult);
-            this.Controls.Add(this.btnAnalyze);
-            this.Controls.Add(this.btnSelectImage);
-            this.Controls.Add(this.pictureBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NirecoVM_LLM - ナンバープレート認識";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(700, 749);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(txtResult);
+            Controls.Add(btnAnalyze);
+            Controls.Add(btnSelectImage);
+            Controls.Add(pictureBox);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "NirecoVM_LLM - ナンバープレート認識";
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

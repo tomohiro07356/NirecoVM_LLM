@@ -17,7 +17,7 @@ namespace NirecoVM_LLM
     {
         private string? _selectedImagePath;
         private readonly OllamaApiClient _ollamaClient;
-        private const string MODEL_NAME = "llama3.2-vision";
+        private const string MODEL_NAME = "gemma3:4b";
         private const string OLLAMA_ENDPOINT = "http://localhost:11434";
         private byte[]? _currentImageBytes;
         private bool _isAnalyzing = false;
@@ -109,7 +109,8 @@ namespace NirecoVM_LLM
 
                 string base64Image = Convert.ToBase64String(_currentImageBytes);
 
-                string prompt = "The vehicle in the image is a Japanese car. Please check the license plate information. All you need is the main 4 digits, no other information is required. For example, if the number is 12-34, just answer License Plate: 12-34. If you cannot read it, just answer License Plate: None.";
+                string prompt = "ナンバープレート情報を読み取って.例えば12-34だったら" +
+                    "「ナンバープレート情報：12-34」の形式で回答して";
 
                 var request = new GenerateRequest
                 {
@@ -118,8 +119,8 @@ namespace NirecoVM_LLM
                     Stream = false,
                     Options = new RequestOptions
                     {
-                        Temperature = 0.7f,
-                        NumPredict = 1024
+                        Temperature = 0.0f, // 0.0fは決定的な応答を生成
+                        NumPredict = 256
                     },
                     Images = new[] { base64Image }
                 };

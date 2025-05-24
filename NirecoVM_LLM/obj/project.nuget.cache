@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oH9tOX8Eqo0=",
+  "dgSpecHash": "YDZdEX0keXc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
+  "projectFilePath": "C:\\Users\\458\\source\\repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\458\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\9.0.0\\microsoft.bcl.asyncinterfaces.9.0.0.nupkg.sha512",
     "C:\\Users\\458\\.nuget\\packages\\microsoft.extensions.ai.abstractions\\9.4.3-preview.1.25230.7\\microsoft.extensions.ai.abstractions.9.4.3-preview.1.25230.7.nupkg.sha512",

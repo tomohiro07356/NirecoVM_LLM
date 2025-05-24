@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj": {}
+    "C:\\Users\\458\\source\\repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj": {
+    "C:\\Users\\458\\source\\repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
+        "projectUniqueName": "C:\\Users\\458\\source\\repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
         "projectName": "NirecoVM_LLM",
-        "projectPath": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
+        "projectPath": "C:\\Users\\458\\source\\repos\\NirecoVM_LLM\\NirecoVM_LLM\\NirecoVM_LLM.csproj",
         "packagesPath": "C:\\Users\\458\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\458\\Source\\Repos\\NirecoVM_LLM\\NirecoVM_LLM\\obj\\",
+        "outputPath": "C:\\Users\\458\\source\\repos\\NirecoVM_LLM\\NirecoVM_LLM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

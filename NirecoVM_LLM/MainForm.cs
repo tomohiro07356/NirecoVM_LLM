@@ -21,6 +21,7 @@ namespace NirecoVM_LLM
         private const string OLLAMA_ENDPOINT = "http://localhost:11434";
         private byte[]? _currentImageBytes;
         private bool _isAnalyzing = false;
+        private string? _trimmedImagePath;
 
         public MainForm()
         {
@@ -42,7 +43,19 @@ namespace NirecoVM_LLM
                 pictureBox.Image = null;
             }
 
+            if (!string.IsNullOrEmpty(_trimmedImagePath) && File.Exists(_trimmedImagePath))
+            {
+                try
+                {
+                    File.Delete(_trimmedImagePath);
+                }
+                catch
+                {
+                }
+            }
+
             _currentImageBytes = null;
+            _trimmedImagePath = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -75,7 +88,10 @@ namespace NirecoVM_LLM
             {
                 using (var image = Image.FromFile(imagePath))
                 {
-                    _currentImageBytes = File.ReadAllBytes(imagePath);
+                    _trimmedImagePath = TrimImageIfNeeded(imagePath);
+                    
+                    string imageForBytes = _trimmedImagePath ?? imagePath;
+                    _currentImageBytes = File.ReadAllBytes(imageForBytes);
                     
                     pictureBox.Image = new Bitmap(image, pictureBox.Width, pictureBox.Height);
                     pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -85,6 +101,40 @@ namespace NirecoVM_LLM
             {
                 MessageBox.Show($"画像の読み込みエラー: {ex.Message}", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        
+        private string? TrimImageIfNeeded(string originalImagePath)
+        {
+            try
+            {
+                using (var originalImage = Image.FromFile(originalImagePath))
+                {
+                    if (originalImage.Width == 1920 && originalImage.Height == 1080)
+                    {
+                        string tmpDir = Path.Combine(Application.StartupPath, "tmp");
+                        Directory.CreateDirectory(tmpDir);
+                        
+                        string fileName = $"trimmed_{Path.GetFileNameWithoutExtension(originalImagePath)}_{DateTime.Now:yyyyMMddHHmmss}.jpg";
+                        string trimmedPath = Path.Combine(tmpDir, fileName);
+                        
+                        Rectangle cropArea = new Rectangle(300, 100, 1280, 720);
+                        using (Bitmap croppedImage = new Bitmap(1280, 720))
+                        using (Graphics graphics = Graphics.FromImage(croppedImage))
+                        {
+                            graphics.DrawImage(originalImage, new Rectangle(0, 0, 1280, 720), cropArea, GraphicsUnit.Pixel);
+                            croppedImage.Save(trimmedPath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        }
+                        
+                        return trimmedPath;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"画像のトリミングエラー: {ex.Message}", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+            return null; // Return null if not 1920x1080 or if trimming failed
         }
 
         private async void btnAnalyze_Click(object sender, EventArgs e)
